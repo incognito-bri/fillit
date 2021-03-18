@@ -1,5 +1,8 @@
 #include "fillit.h"
 
+/*	used to free tetrimino linked list once solution has been found. 
+*/
+
 void	solvedfree(t_mino *current)
 {
 	t_mino	*head;
@@ -15,6 +18,14 @@ void	solvedfree(t_mino *current)
 	exit(0);
 }
 
+/* solving algorithm places one piece at a time until all pieces are succesfully placed on board.
+if a piece can not be placed we will backtrack to the previous piece and find the next succesful placement for it
+in hopes of then being able to place the next piece, once we run out of spaces for either pieces we will continue
+to backtrack and repeat the process until we have backtracked all the way to the head of our tetrimino structure
+indicating there is no possible solution for the given board size. We will then increase the size of our board
+and repeat the process until a solution is reached.
+*/
+
 char	*solve(int min_size, t_mino *head)
 {
 	char	*board;
@@ -26,18 +37,19 @@ char	*solve(int min_size, t_mino *head)
 	board = setup(head, &min_size);
 	while (1)
 	{
-		if (temp == NULL)
+		if (temp == NULL) // end of tetrimino linked list reached, solution found.
 			return (board);
-		if (temp == temp->head && (!(find_spot(offset, &temp))))
+		if (temp == temp->head && (!(find_spot(offset, &temp)))) // backtracked all the way to head, no possible solution
+				// so we increase board size along with offset, free our previous board and create a bigger one.
 		{
 			min_size++;
 			offset++;
 			free(board);
 			board = build_board(min_size, head);
 		}
-		if ((find_spot(offset, &temp)))
+		if ((find_spot(offset, &temp))) // if spot is succesfully found for tetrimino we then place on our board.
 			temp = place_piece(temp, offset);
-		else
+		else // nowhere to put current piece so we backtrack to the previous piece and shift over one spot until we can place the next piece.
 			temp = remove_piece(temp, offset, board);
 	}
 	return (NULL);
@@ -65,7 +77,7 @@ int		main(int argc, char **argv)
 	temp = current->head;
 	validate(&temp);
 	board = solve(nop, temp);
-	ft_putendl(board);
+	ft_putendl(board); 
 	free(board);
 	solvedfree(current);
 	return(1);

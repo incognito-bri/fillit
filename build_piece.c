@@ -1,5 +1,9 @@
 #include "fillit.h"
 
+
+/* trims any empty space such as '.' or '\n' both leading and trailing our piece and stores in new
+string while freeing old piece. */
+
 char	*ft_piecetrim(char *piece)
 {
 	int		b;
@@ -26,6 +30,12 @@ char	*ft_piecetrim(char *piece)
 	return (str);
 }
 
+/* this will takes us to the index in 2d array in which we can begin copying over to 1d array.
+we bypass any lines in LN index not containing active pieces in order to make sure our 
+final piece is located at the begining of the string. we also want to start copying at whatever
+LP index within all LN values that an active pieces shows up first in order to keep our search pattern
+aligned.	*/
+
 int		find_copy_s(t_mino *current, int *ln, int *lp)
 {
 	*ln = 0;
@@ -39,6 +49,10 @@ int		find_copy_s(t_mino *current, int *ln, int *lp)
 		*lp += 1;
 	return (0);
 }
+
+
+/*	we copy from our tetrimino 2d array into our 1d string such that it is placed at the very
+begining of our string. */
 
 void	array_to_string(t_mino *current, int ln, int lp, char *piece)
 {
@@ -63,6 +77,10 @@ void	array_to_string(t_mino *current, int ln, int lp, char *piece)
 		ln++;
 	}
 }
+
+/* this is almost entirely like build board where we are 
+building a string array in which we will later store our tetrimino piece in... we decided to do it different
+for no apparent reason.	*/
 
 char	*build_piece(t_mino *current, int size)
 {

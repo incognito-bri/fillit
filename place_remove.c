@@ -1,5 +1,8 @@
 #include "fillit.h"
 
+/* place current piece on board with with the help of lgs and offset value, also places on board with alpha value
+found inside struct so it is ready to be printed. */
+
 t_mino	*place_piece(t_mino *current, int offset)
 {
 	int	i;
@@ -25,6 +28,10 @@ t_mino	*place_piece(t_mino *current, int offset)
 	}
 	return (current->next);
 }
+
+/* resets lgs for current piece to begining of board. set current pieces to previous element in linked list
+then removes the piece using ipat variable in tetrimino struct as well as offset value. finally we increment lgs for current
+tetrimino to begin looking for new possible spot to place.*/
 
 t_mino	*remove_piece(t_mino *current, int offset, char *board)
 {

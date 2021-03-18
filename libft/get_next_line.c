@@ -50,7 +50,7 @@ int		get_next_line(int const fd, char **line)
 	if (!line || fd < 0 || BUFF_SIZE < 0)
 		return (-1);
 	dnl = ft_init_dynamic_array(20);
-	if (	.index == lvar.rstatus)
+	if (lvar.index == lvar.rstatus)
 	{
 		repop_buffer(&lvar, fd);
 		if (lvar.rstatus == 0)

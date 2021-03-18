@@ -1,6 +1,6 @@
 #include "fillit.h"
 
-t_mino		*init_list(void)
+t_mino		*init_list(void) // initialize t_mino structure linked list
 {
 	t_mino	*current;
 

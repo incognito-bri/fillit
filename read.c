@@ -1,5 +1,9 @@
 #include "fillit.h"
 
+/* last step in validation repurposes AP variable in tetrimino structure to check for contact points
+a contact point is where two active pieces make contact, a valid tetrimino piece will have 5, 6, or 8 
+contact points	validate function will iterate through entire tetrimino linked list structure */
+
 int		validate(t_mino **current)
 {
 	int		ln;
@@ -19,6 +23,9 @@ int		validate(t_mino **current)
 	}
 	return (0);
 }
+
+/* iterates through each element of 2d array in which tetrimino is found and 
+adjusts AP variable inside stucture for validaton */
 
 int		check_contacts(int ln, t_mino *current)
 {
@@ -42,6 +49,11 @@ int		check_contacts(int ln, t_mino *current)
 	return (1);
 }
 
+
+/* reads input file and saves each tetrimino piece into a linked list structure
+also ensures each line in input file is appropriate length of either 0 or 4 characters for validation	*/
+
+
 int		readpiece(int fd, t_mino **current, int *nop)
 {
 	char	*line;
@@ -59,9 +71,12 @@ int		readpiece(int fd, t_mino **current, int *nop)
 			new_mino(current, nop, &ln, &l);
 		if (ft_strlen(line) == 4)
 			write_mino(current, line, &ln, &l);
-	}
+ 	}
 	return (0);
 }
+
+/* creates a new tetrimino structure and appends to tail end of linked list 
+also keeps track of consecutive empty lines (l) for validation 	*/
 
 void	new_mino(t_mino **current, int *nop, int *ln, int *l)
 {
@@ -72,6 +87,10 @@ void	new_mino(t_mino **current, int *nop, int *ln, int *l)
 	(*ln) = 0;
 	(*l)++;
 }
+
+/* writes each line of a tetrimino piece into the approriate element of a 2d array while adjusting 
+AP (active piece) for each # for validation purposes. also adjusts
+and keeps track of LN (line number) in tetrimino piece for validation */
 
 int		write_mino(t_mino **current, char *line, int *ln, int *l)
 {

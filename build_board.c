@@ -1,5 +1,8 @@
 #include "fillit.h"
 
+/* returns length of one side for the smallest possible square tetriminos will fit into by taking the 
+number of pieces and multiplying by 4 */
+
 int		next_best_board(int nop, t_mino *head)
 {
 	int ap;
@@ -16,6 +19,9 @@ int		next_best_board(int nop, t_mino *head)
 		l++;
 	return (l);
 }
+
+/* checks for specific edgecase where 1 or 2 tetriminos are used as input
+and part of the tetrimino is trimmed when building piece which will later result in error. */
 
 int		small_board_check(t_mino *head, int size)
 {
@@ -43,6 +49,11 @@ int		small_board_check(t_mino *head, int size)
 	return (1);
 }
 
+/* each tetrimino structure contains a pointer *lgs (last good spot) for the last spot in which the
+tetrimino can be succesfully placed. Because we have not gotten into the solver we are setting lgs 
+for each tetrimino as the start of the board so we know from where to start looking for spots 
+to place piece.*/
+
 void	assign_board(char *board, t_mino *head)
 {
 	t_mino *temp;
@@ -54,6 +65,10 @@ void	assign_board(char *board, t_mino *head)
 		temp = temp->next;
 	}
 }
+
+/* using the return of minimum board size we build a board in the form of a 
+string array populated with '.' and '\n'. '.'  designates empty space in which tetrimino can be placed.
+having a 2d array allows us to use string search like functionality moving forward.	 */
 
 char	*build_board(int size, t_mino *head)
 {

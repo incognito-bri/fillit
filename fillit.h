@@ -4,28 +4,28 @@
 # include "libft/libft.h"
 # include <stdlib.h>
 
-typedef struct	s_mino
+typedef struct	s_mino // tetrimino linked list structure
 {
-	int				ap;
-	int				onboard;
-	int				alpha;
-	int				offset;
-	int				ipat[10];
-	char			piece[5][5];
-	char			*lgs;
-	struct s_mino	*next;
+	int				ap; // number of active pieces
+	int				onboard; // boolean whether on board or not
+	int				alpha; // designated letter for printing result
+	int				offset; // used to keep track of offset in empty space which grows with each increment in board size.
+	int				ipat[10]; // stores pattern used to find tetrimino placement on board/
+	char			piece[5][5]; // 2d array used to validate and initially store tetriminos.
+	char			*lgs; // last spot on board on which piece can be succesfully placed.
+	struct s_mino	*next; 
 	struct s_mino	*prev;
 	struct s_mino	*head;
 
 }				t_mino;
 
-typedef struct	s_fp
+typedef struct	s_fp // used to find valid spot on board for tetriminos.
 {
-	int				start;
-	int				place;
-	int				pattern;
-	int				io;
-	int				i;
+	int				start; // starting point for where to search for a placement.
+	int				place; // stores our current index on ipat value within tetrimino structure.
+	int				pattern; // stores current value of ipat we are working with.
+	int				io; // bool for active piece or empty space.
+	int				i; // tracks distance from start on our board.
 
 }				t_fp;
 
